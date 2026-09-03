@@ -1,0 +1,16 @@
+services:
+  vps:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:2222:22"
+    environment:
+      - WEB_USER=admin
+      - WEB_PASSWORD=admin123 # ПОМЕНЯЙ!
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
